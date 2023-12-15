@@ -4,10 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Your Page Title</title>
+  <!-- 加入你的其他必要的 meta 標籤或樣式表等 -->
 </head>
 <body>
-
-<!-- Your HTML content goes here -->
 
 <script>
   // import _ from 'lodash'
@@ -27,49 +26,31 @@
     // ... 其他初始化程式碼 ...
   })()
 
-  async function isFriend () {
+  async function isFriend() {
     return _.get(await liff.getFriendship(), 'friendFlag', false)
   }
 
-  async function sleep (t) {
+  async function sleep(t) {
     await new Promise(resolve => { setTimeout(resolve, t) })
   }
 
-  async function waitAddFriend () {
+  async function waitAddFriend() {
     await loginPromise // 確保 LIFF 頁面初始化結束
     if (await isFriend()) return // 如果用戶已經是好友就直接結束
+    // 這裡修改成跳轉到指定的 URL
+    window.location.href = 'https://forms.gle/3RCbSC4r7LdG4Skf6';
+  }
 
-    // 檢測是否已加入官方號
-    const joinedOfficialAccount = /* Add your logic to check if joined official account */ false;
-    if (joinedOfficialAccount) {
-      window.location.href = 'https://forms.gle/3RCbSC4r7LdG4Skf6'; // 跳轉到指定 URL
-      return;
-    }
-
-    // 未加入官方號，跳轉到指定 URL
+  async function init() {
+    await waitAddFriend() // 等待用戶加入好友
+    // 這裡修改成跳轉到指定的 URL
     window.location.href = 'https://lin.ee/mFFJIyi';
-
-    while (true) {
-      // 避免過於頻繁執行 isFriend() 所以設定 0.5 秒的間隔
-      await sleep(500);
-      // 如果用戶已經是好友就結束
-      if (await isFriend()) return;
-    }
   }
 
-  async function init () {
-    await waitAddFriend(); // 等待用戶加入好友
-
-    // 如果這裡需要顯示其他主頁面的初始化邏輯，可以在這裡添加
-    // showPage('main');
-  }
-
-  // Add your logic to check if joined official account
-  // const joinedOfficialAccount = /* Your logic here */;
-
-  // Call init function
+  // 初始化
   init();
 </script>
 
 </body>
 </html>
+ 
