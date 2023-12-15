@@ -12,7 +12,7 @@
 <script>
   // import _ from 'lodash'
   const loginPromise = (async () => {
-    await liff.init({ liffId: '#{liffId}' })
+    await liff.init({ liffId: '#{2000632242-exmXab1M}' })
     if (new URL(location).searchParams.get('liff.state') !== null) {
       // 由於 SDK 尚未處理 liff.state 的跳轉
       // 所以透過一個不會結束的 Promise 避免程式繼續執行下去
@@ -40,14 +40,14 @@
     if (await isFriend()) return // 如果用戶已經是好友就直接結束
 
     // 檢測是否已加入官方號
-    const joinedOfficialAccount = /* Add your logic to check if joined official account */;
+    const joinedOfficialAccount = /* Add your logic to check if joined official account */ false;
     if (joinedOfficialAccount) {
       window.location.href = 'https://forms.gle/3RCbSC4r7LdG4Skf6'; // 跳轉到指定 URL
       return;
     }
 
-    // 未加入官方號，顯示加入好友的頁面
-    showPage('follow');
+    // 未加入官方號，跳轉到指定 URL
+    window.location.href = 'https://lin.ee/mFFJIyi';
 
     while (true) {
       // 避免過於頻繁執行 isFriend() 所以設定 0.5 秒的間隔
